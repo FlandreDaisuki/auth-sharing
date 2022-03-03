@@ -1,0 +1,6 @@
+version: "3.6"
+services:
+  entry:
+    build: ./entry
+    ports:
+      - "60000:80"
