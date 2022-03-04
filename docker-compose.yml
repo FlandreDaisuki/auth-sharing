@@ -2,5 +2,14 @@ version: "3.6"
 services:
   entry:
     build: ./entry
+    restart: unless-stopped
     ports:
-      - "60000:80"
+      - "10080:80"
+
+  database:
+    build: ./database
+    restart: unless-stopped
+    ports:
+      - "13306:80"
+    volumes:
+      - ${PWD}/database/db.json:/root/db.json
