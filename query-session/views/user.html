@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello {{name}}!</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <style>
+    .flex {
+      display: flex;
+    }
+    .items-center {
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    .text-2xl {
+      font-size: 1.5rem; /* 24px */
+      line-height: 2rem; /* 32px */
+    }
+    .rounded-full {
+      border-radius: 9999px;
+    }
+    .h-30 {
+      height: 120px;
+    }
+    .w-30 {
+      width: 120px;
+    }
+    .mr-5 {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <article class="flex items-center" style="max-width: 600px; margin: 0 auto;">
+      <img class="h-30 w-30 rounded-full mr-5" src="{{avatar.src}}" alt="{{avatar.alt}}"/>
+      <div>
+        <h2 class="text-2xl">{{     name      }}</h2>
+        <a href="https://github.com/{{github}}">GitHub</a>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

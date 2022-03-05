@@ -13,3 +13,16 @@ services:
       - "13306:80"
     volumes:
       - ${PWD}/database/db.json:/root/db.json
+    networks:
+      - auth-sharing-net
+
+  query-session:
+    build: ./query-session
+    restart: unless-stopped
+    ports:
+      - "10180:80"
+    networks:
+      - auth-sharing-net
+
+networks:
+  auth-sharing-net:
