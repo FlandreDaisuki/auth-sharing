@@ -32,5 +32,13 @@ services:
     networks:
       - auth-sharing-net
 
+  common-session:
+    build: ./common-session
+    restart: unless-stopped
+    ports:
+      - "10380:80"
+    networks:
+      - auth-sharing-net
+
 networks:
   auth-sharing-net:
