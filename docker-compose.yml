@@ -24,5 +24,13 @@ services:
     networks:
       - auth-sharing-net
 
+  cookie-session:
+    build: ./cookie-session
+    restart: unless-stopped
+    ports:
+      - "10280:80"
+    networks:
+      - auth-sharing-net
+
 networks:
   auth-sharing-net:
