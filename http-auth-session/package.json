@@ -1,0 +1,13 @@
+{
+  "name": "http-auth-session",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.mjs"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "node-fetch": "^3.2.1"
+  }
+}

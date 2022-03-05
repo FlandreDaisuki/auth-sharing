@@ -40,5 +40,13 @@ services:
     networks:
       - auth-sharing-net
 
+  http-auth-session:
+    build: ./http-auth-session
+    restart: unless-stopped
+    ports:
+      - "10480:80"
+    networks:
+      - auth-sharing-net
+
 networks:
   auth-sharing-net:

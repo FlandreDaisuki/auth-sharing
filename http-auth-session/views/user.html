@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello {{name}}!</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+  <style>
+    .user-card {
+      display: grid;
+      grid-template-areas: "avatar details"
+                           "footer footer";
+      grid-auto-columns: max-content auto;
+    }
+    .user-card > :nth-child(1) {
+      grid-area: avatar;
+    }
+    .user-card > :nth-child(2) {
+      grid-area: details;
+    }
+    .user-card > :nth-child(3) {
+      grid-area: footer;
+    }
+    .text-2xl {
+      font-size: 1.5rem; /* 24px */
+      line-height: 2rem; /* 32px */
+    }
+    .rounded-full {
+      border-radius: 9999px;
+    }
+    .h-30 {
+      height: 120px;
+    }
+    .w-30 {
+      width: 120px;
+    }
+    .mr-5 {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <article class="user-card" style="max-width: 600px; margin: 0 auto;">
+      <img class="h-30 w-30 rounded-full mr-5" src="{{avatar.src}}" alt="{{avatar.alt}}"/>
+      <div>
+        <h2 class="text-2xl">{{     name      }}</h2>
+        <a href="https://github.com/{{github}}">GitHub</a>
+      </div>
+      <footer style="text-align: right;">
+        <a role="button" href="http://log:out@localhost:30480/">Logout</a>
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
