@@ -34,7 +34,7 @@ app.get('/', async(req, res) => {
   const db = await connectDatabase();
   console.log('GET', 'req.query', req.query);
 
-  const foundUser = db.find((record) => String(record.id) === req.query.id);
+  const foundUser = db.users.find((user) => String(user.id) === req.query.id);
   console.log('GET', req.url, foundUser);
 
   if (foundUser) {
@@ -48,7 +48,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/', async(req, res) => {
   console.log('POST', req.url, req.body);
   const db = await connectDatabase();
-  const foundUser = db.find(({ name, password }) =>
+  const foundUser = db.users.find(({ name, password }) =>
     name === req.body.name && password === req.body.password,
   );
   console.log('foundUser', foundUser);

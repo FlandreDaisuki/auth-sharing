@@ -68,7 +68,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/', async(req, res) => {
   console.log('POST', req.url, req.body);
   const db = await connectDatabase();
-  const foundUser = db.find(({ name, password }) =>
+  const foundUser = db.users.find(({ name, password }) =>
     name === req.body.name && password === req.body.password,
   );
   console.log('foundUser', foundUser);

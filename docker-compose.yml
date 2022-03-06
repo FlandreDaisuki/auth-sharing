@@ -4,13 +4,13 @@ services:
     build: ./entry
     restart: unless-stopped
     ports:
-      - "10080:80"
+      - "30080:80"
 
   database:
     build: ./database
     restart: unless-stopped
     ports:
-      - "13306:80"
+      - "33306:80"
     volumes:
       - ${PWD}/database/db.json:/root/db.json
     networks:
@@ -20,7 +20,7 @@ services:
     build: ./query-session
     restart: unless-stopped
     ports:
-      - "10180:80"
+      - "30180:80"
     networks:
       - auth-sharing-net
 
@@ -28,7 +28,7 @@ services:
     build: ./cookie-session
     restart: unless-stopped
     ports:
-      - "10280:80"
+      - "30280:80"
     networks:
       - auth-sharing-net
 
@@ -36,7 +36,7 @@ services:
     build: ./common-session
     restart: unless-stopped
     ports:
-      - "10380:80"
+      - "30380:80"
     networks:
       - auth-sharing-net
 
@@ -44,7 +44,7 @@ services:
     build: ./http-auth-session
     restart: unless-stopped
     ports:
-      - "10480:80"
+      - "30480:80"
     networks:
       - auth-sharing-net
 

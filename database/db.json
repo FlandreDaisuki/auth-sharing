@@ -1,16 +1,21 @@
-[{
-  "id": 1,
-  "name": "Linus",
-  "password": "Linus666",
-  "github": "torvalds"
-}, {
-  "id": 20,
-  "name": "Kanboo",
-  "password": "Kanboo123",
-  "github": "kanboo"
-}, {
-  "id": 87,
-  "name": "CH",
-  "password": "CH8787",
-  "github": "FlandreDaisuki"
-}]
+{
+  "users": [{
+    "id": 1,
+    "name": "Linus",
+    "password": "Linus666",
+    "github": "torvalds",
+    "level": 100
+  }, {
+    "id": 20,
+    "name": "Kanboo",
+    "password": "Kanboo123",
+    "github": "kanboo",
+    "level": 50
+  }, {
+    "id": 87,
+    "name": "CH",
+    "password": "CH8787",
+    "github": "FlandreDaisuki",
+    "level": 1
+  }]
+}

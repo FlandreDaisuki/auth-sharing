@@ -38,7 +38,7 @@ app.get('/', async(req, res) => {
       const encodedCredentials = req.headers.authorization.replace(/^Basic (.+)$/, '$1');
       const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('ascii');
       const [name, password] = decodedCredentials.split(':');
-      const foundUser = db.find((record) => record.name === name && record.password === password);
+      const foundUser = db.users.find((user) => user.name === name && user.password === password);
       if (foundUser) {
         res.send(await applyUserHTML(foundUser));
       } else {
