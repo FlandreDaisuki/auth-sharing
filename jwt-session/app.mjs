@@ -20,6 +20,9 @@ const getGithubUser = async(githubUsername) => {
 const applyUserHTML = async(user) => {
   const githubUser = await getGithubUser(user.github);
   return userHTMLTemplate
+    .replace(/{{\s*ENV\s*}}/g, JSON.stringify({
+      RESOURCE_SERVER: process.env.RESOURCE_SERVER,
+    }))
     .replace(/{{\s*name\s*}}/g, user.name)
     .replace(/{{\s*avatar.src\s*}}/g, githubUser.avatar_url)
     .replace(/{{\s*avatar.alt\s*}}/g, `${user.name}'s avatar`)

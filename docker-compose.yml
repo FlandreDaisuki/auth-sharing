@@ -54,10 +54,20 @@ services:
     volumes:
       - ${PWD}/jwtRS256.key:/root/jwtRS256.key
       - ${PWD}/jwtRS256.key.pub:/root/jwtRS256.key.pub
+    environment:
+      - RESOURCE_SERVER=http://localhost:30680
     ports:
       - "30580:80"
     networks:
       - auth-sharing-net
+
+  resource:
+    build: ./resource
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/jwtRS256.key.pub:/root/jwtRS256.key.pub
+    ports:
+      - "30680:80"
 
 networks:
   auth-sharing-net:

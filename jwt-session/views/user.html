@@ -39,12 +39,15 @@
       margin-right: 20px;
     }
   </style>
+  <script>
+    window.ENV = JSON.parse('{{ENV}}')
+  </script>
 </head>
 <body>
   <main class="container">
     <article class="user-card" style="max-width: 600px; margin: 0 auto;">
       <img class="h-30 w-30 rounded-full mr-5" src="{{avatar.src}}" alt="{{avatar.alt}}"/>
-      <div>
+      <div class="user-details">
         <h2 class="text-2xl">{{     name      }}</h2>
         <a href="https://github.com/{{github}}">GitHub</a>
       </div>
@@ -53,5 +56,26 @@
       </footer>
     </article>
   </main>
+  <script>
+    (async() => {
+      const token = localStorage.getItem('token');
+      const fetchInit = {headers: {Authorization: `Bearer ${token}`}};
+      const response = await fetch(`${ENV.RESOURCE_SERVER}/pinned-repos`, fetchInit);
+      if(!response.ok) {
+        console.error(await response.text());
+        return;
+      }
+
+      const pinnedRepos = await response.json();
+      console.log(pinnedRepos);
+
+      const userDetailsEl = document.querySelector('.user-details');
+      for (const pinnedRepo of pinnedRepos) {
+        const imgEl = document.createElement('img');
+        imgEl.src = pinnedRepo.image;
+        userDetailsEl.appendChild(imgEl);
+      }
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,12 @@
+{
+  "levelDetails": [{
+    "level": 100,
+    "fields": ["id", "created_at", "updated_at"]
+  }, {
+    "level": 50,
+    "fields": ["avatar_url", "blog"]
+  }, {
+    "level": 0,
+    "fields": ["login", "name"]
+  }]
+}
