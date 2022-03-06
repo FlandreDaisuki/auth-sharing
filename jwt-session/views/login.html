@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+</head>
+<body>
+  <!-- ref: https://github.com/picocss/examples/blob/master/sign-in/index.html -->
+  <main class="container">
+    <article class="grid" style="max-width: 600px; margin: 0 auto;">
+      <div>
+        <h1>Sign in</h1>
+        <form method="POST">
+          <input type="text" name="name" placeholder="Username" aria-label="Username" autocomplete="nickname" required>
+          <input type="password" name="password" placeholder="Password" aria-label="Password" autocomplete="current-password" required>
+          <fieldset>
+            <label for="remember">
+              <input type="checkbox" role="switch" id="remember" name="remember">
+              Remember me
+            </label>
+          </fieldset>
+          <button type="submit" class="contrast">Login</button>
+        </form>
+      </div>
+    </article>
+  </main>
+</body>
+</html>

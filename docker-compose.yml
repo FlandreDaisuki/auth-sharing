@@ -48,5 +48,16 @@ services:
     networks:
       - auth-sharing-net
 
+  jwt-session:
+    build: ./jwt-session
+    restart: unless-stopped
+    volumes:
+      - ${PWD}/jwtRS256.key:/root/jwtRS256.key
+      - ${PWD}/jwtRS256.key.pub:/root/jwtRS256.key.pub
+    ports:
+      - "30580:80"
+    networks:
+      - auth-sharing-net
+
 networks:
   auth-sharing-net:
