@@ -10,7 +10,8 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const userHTMLTemplate = fs.readFileSync('views/user.html', 'utf8');
 const privateKey = fs.readFileSync('jwtRS256.key', 'utf8');
-const publicKey = fs.readFileSync('jwtRS256.key.pub', 'utf8');
+
+const sessionTable = {};
 
 const getGithubUser = async(githubUsername) => {
   const response = await fetch(`https://api.github.com/users/${githubUsername}`);
@@ -35,28 +36,35 @@ const connectDatabase = async() => {
   return await response.json();
 };
 
+const generateRandomHex8 = () => [...'12345678']
+  .map(() => Math.floor(Math.random() * 16).toString(16))
+  .join('');
+
+const createSessionId = () => {
+  let sessionId = generateRandomHex8();
+  while (sessionTable[sessionId]) {
+    sessionId = generateRandomHex8();
+  }
+  return sessionId;
+};
+
 const app = express();
 
 app.use(cookieParser());
 app.get('/', async(req, res) => {
-  try {
-    console.log('req.cookies', req.cookies);
-    const { token } = req.cookies;
-    if (!token) {
-      throw new Error('Unauthorized');
-    }
+  console.log('req.cookies', req.cookies);
 
-    const decodedUser = jwt.verify(token, publicKey);
-    console.log('decodedUser', decodedUser);
-
-    res.send(await renderUserHTML(decodedUser));
-  } catch (error) {
+  const foundSession = sessionTable[req.cookies.sessionId];
+  if (foundSession) {
+    foundSession.viewCount = (foundSession.viewCount ?? 0) + 1;
+    res.send(await renderUserHTML(foundSession));
+  } else {
     res.sendFile('views/login.html', { root: __dirname });
   }
 });
 
 app.get('/logout', async(req, res) => {
-  res.cookie('token', '', { expires: new Date(0) }).send(`<script>
+  res.cookie('sessionId', '', { expires: new Date(0) }).send(`<script>
   localStorage.removeItem('token'); location.assign('/');
   </script>`);
 });
@@ -72,13 +80,17 @@ app.post('/', async(req, res) => {
   console.log('foundUser', foundUser);
 
   if (foundUser) {
+    const sessionId = createSessionId();
+    sessionTable[sessionId] = foundUser;
+
     const token = jwt.sign(foundUser, privateKey, { algorithm: 'RS256' });
     console.log('token', token);
-    res.cookie('token', token).send(`<script>
-    localStorage.setItem('token', '${token}'); location.assign('/');
-    </script>`);
+    res.cookie('sessionId', sessionId, { httpOnly: true })
+      .send(`<script>
+      localStorage.setItem('token', '${token}'); location.assign('/');
+      </script>`);
   } else {
-    res.redirect('/');
+    res.redirect('/logout');
   }
 });
 

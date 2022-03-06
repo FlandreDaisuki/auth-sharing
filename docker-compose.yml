@@ -53,7 +53,6 @@ services:
     restart: unless-stopped
     volumes:
       - ${PWD}/jwtRS256.key:/root/jwtRS256.key
-      - ${PWD}/jwtRS256.key.pub:/root/jwtRS256.key.pub
     environment:
       - RESOURCE_SERVER=http://localhost:30680
     ports:

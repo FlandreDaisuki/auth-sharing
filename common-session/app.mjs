@@ -16,7 +16,7 @@ const getGithubUser = async(githubUsername) => {
   return await response.json();
 };
 
-const applyUserHTML = async(user) => {
+const renderUserHTML = async(user) => {
   const githubUser = await getGithubUser(user.github);
   return userHTMLTemplate
     .replace(/{{\s*name\s*}}/g, user.name)
@@ -54,7 +54,7 @@ app.get('/', async(req, res) => {
   const foundSession = sessionTable[req.cookies.sessionId];
   if (foundSession) {
     foundSession.viewCount = (foundSession.viewCount ?? 0) + 1;
-    res.send(await applyUserHTML(foundSession));
+    res.send(await renderUserHTML(foundSession));
   } else {
     res.sendFile('views/login.html', { root: __dirname });
   }
