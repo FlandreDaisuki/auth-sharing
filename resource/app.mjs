@@ -1,27 +1,26 @@
 import express from 'express';
 import fs from 'fs';
 import jwt from 'express-jwt';
+import cors from 'cors';
 import fetch from 'node-fetch';
 
 const app = express();
 
 const publicKey = fs.readFileSync('jwtRS256.key.pub', 'utf8');
 
+app.use(cors());
 app.use(
   jwt({ secret: publicKey, algorithms: ['RS256'], requestProperty: 'auth' })
     .unless({ path: ['/favicon.ico'] }),
 );
+
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     return res.status(401).send('401 Unauthorized');
   }
   next();
 });
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  next();
-});
+
 
 app.get('/pinned-repos', async(req, res) => {
   console.log('req.auth', req.auth);
