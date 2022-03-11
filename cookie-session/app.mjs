@@ -14,7 +14,7 @@ const getGithubUser = async(githubUsername) => {
   return await response.json();
 };
 
-const applyUserHTML = async(user) => {
+const renderUserHTML = async(user) => {
   const githubUser = await getGithubUser(user.github);
   return userHTMLTemplate
     .replace(/{{\s*name\s*}}/g, user.name)
@@ -40,7 +40,7 @@ app.get('/', async(req, res) => {
   console.log('GET', req.url, foundUser);
 
   if (foundUser) {
-    res.send(await applyUserHTML(foundUser));
+    res.send(await renderUserHTML(foundUser));
   } else {
     res.sendFile('views/login.html', { root: __dirname });
   }

@@ -17,7 +17,7 @@ const getGithubUser = async(githubUsername) => {
   return await response.json();
 };
 
-const applyUserHTML = async(user) => {
+const renderUserHTML = async(user) => {
   const githubUser = await getGithubUser(user.github);
   return userHTMLTemplate
     .replace(/{{\s*ENV\s*}}/g, JSON.stringify({
@@ -49,7 +49,7 @@ app.get('/', async(req, res) => {
     const decodedUser = jwt.verify(token, publicKey);
     console.log('decodedUser', decodedUser);
 
-    res.send(await applyUserHTML(decodedUser));
+    res.send(await renderUserHTML(decodedUser));
   } catch (error) {
     res.sendFile('views/login.html', { root: __dirname });
   }
